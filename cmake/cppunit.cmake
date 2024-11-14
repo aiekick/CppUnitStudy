@@ -1,0 +1,13 @@
+set(CPPUNIT_SOURCE_DIR ${CMAKE_SOURCE_DIR}/cppunit)
+set(CPPUNIT_INCLUDE_DIR ${CPPUNIT_SOURCE_DIR}/include)
+set(CPPUNIT_LIBRARY cppunit)
+
+file(GLOB_RECURSE CPPUNIT_SRC_SOURCES 
+	${CPPUNIT_SOURCE_DIR}/src/cppunit/*.h
+	${CPPUNIT_SOURCE_DIR}/src/cppunit/*.hpp
+	${CPPUNIT_SOURCE_DIR}/src/cppunit/*.cpp
+)
+source_group(TREE ${CPPUNIT_SOURCE_DIR}/src/cppunit PREFIX src FILES ${CPPUNIT_SRC_SOURCES})
+
+add_library(${CPPUNIT_LIBRARY} ${CPPUNIT_SRC_SOURCES})
+target_include_directories(${CPPUNIT_LIBRARY} PRIVATE ${CPPUNIT_INCLUDE_DIR})
