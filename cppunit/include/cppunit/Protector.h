@@ -9,6 +9,7 @@ class Exception;
 class Message;
 class ProtectorContext;
 class TestResult;
+class AssertionRecorderException;
 
 
 class CPPUNIT_API Functor
@@ -62,6 +63,9 @@ protected:
 
   void reportFailure( const ProtectorContext &context,
                       const Exception &failure ) const;
+
+  void reportSuccess( const ProtectorContext &context, 
+                      const AssertionRecorderException &success) const;
 
   Message actualMessage( const Message &message,
                          const ProtectorContext &context ) const;

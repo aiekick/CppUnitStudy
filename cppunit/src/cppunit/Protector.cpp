@@ -48,6 +48,13 @@ Protector::reportFailure( const ProtectorContext &context,
                                 actualFailure.release() );
 }
 
+void Protector::reportSuccess( const ProtectorContext &context, 
+                               const AssertionRecorderException &success) const {
+    //std::unique_ptr<Exception> actualSuccess(success.clone());
+    //actualFailure->setMessage(actualMessage(actualFailure->message(), context));
+    //context.m_result->addFailure(context.m_test, actualFailure.release());
+}
+
 
 Message 
 Protector::actualMessage( const Message &message,

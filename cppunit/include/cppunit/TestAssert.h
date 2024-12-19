@@ -8,6 +8,8 @@
 #include <cppunit/tools/StringHelper.h>
 #include <stdio.h>
 #include <float.h> // For struct assertion_traits<double>
+#include <cppunit/AssertionRecorder.h>
+#include <cppunit/TestFixture.h>
 
 // Work around "passing 'T' chooses 'int' over 'unsigned int'" warnings when T
 // is an enum type:
@@ -290,6 +292,7 @@ void assertGreaterEqual( const T& expected,
  * \param condition If this condition evaluates to \c false then the
  *                  test failed.
  */
+#if 1
 #define CPPUNIT_ASSERT_MESSAGE(message,condition)                          \
   ( CPPUNIT_NS::Asserter::failIf( !(condition),                            \
                                   CPPUNIT_NS::Message( "assertion failed", \
@@ -297,6 +300,15 @@ void assertGreaterEqual( const T& expected,
                                                        #condition,         \
                                                        CPPUNIT_NS::message_to_string(message) ),          \
                                   CPPUNIT_SOURCELINE() ) )
+#else
+
+#define CPPUNIT_ASSERT_MESSAGE(message, condition) \
+    (CPPUNIT_NS::Asserter::failIf(                 \
+        !(condition), TestFixture::getRecorder().record( \
+        CPPUNIT_NS::Message("assertion failed", "Expression: " #condition, \
+        CPPUNIT_NS::message_to_string(message))), CPPUNIT_SOURCELINE()))
+#endif
+  
 
 /** Fails with the specified message.
  * \ingroup Assertions
